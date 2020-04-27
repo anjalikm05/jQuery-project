@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sign-up Form</title>
+        <link rel="stylesheet" type="text/css" href="signup.css">
+        <script src="jquery.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+    
+        <div id="block">
+            <div id="left">
+                <h2>Have an account?</h2>
+                <button id="login-bttn" onclick="location.href ='login.htm'">Log in</button>
+
+            </div>
+            <div id="right">
+                <h1>Register</h1>
+                <form id="form" name="signup">
+
+                    <div class="form-index">
+                        <label for="username">Name:</label>
+                        <input type="text" id="username" name="username" autocomplete="off">
+                        <h5 id="checkname"></h5>
+                    </div>
+
+                    <div class="form-index">
+                        <label for="userid">User ID:</label>
+                        <input type="text" id="userid" name="userid" autocomplete="off">
+                        <h5 id="checkuserid">avhjch</h5>
+                    </div>
+
+                    <div class="form-index">
+                        <label for="email">Email:</label>
+                        <input type="text" id="email" name="email" placeholder="e.g.yourname@yahoo.com" autocomplete="off">
+                        <h5 id="checkemail">avhjch</h5>
+                    </div>
+
+                    <div class="form-index">
+                        <label for="gender">Gender:</label>
+                        <input type="radio" class="gender" name="gender" value="male">Male<br>
+                        <input type="radio" class="gender" name="gender" value="female" style="margin-left: 140px;">Female
+                        <h5 id="checkgender">avhjch</h5>
+                    </div>
+
+                    <div class="form-index">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password">
+                        <h5 id="checkpassword">avhjch</h5>
+                    </div>
+
+                    <div class="form-index">
+                        <label for="confirmpassword">Confirm Password:</label>
+                        <input type="password" id="confirmpassword" name="confirmpassword">
+                        <h5 id="checkconfirmpassword">avhjch</h5>
+                    </div>
+                    
+                    <div class="form-index">
+                        <input type="checkbox" id="checked" name="checked">Accept the terms and condition.
+                    </div>
+
+                    <div class="form-index">
+                        <input type="submit" id="submit" value="Sign Up">
+                    </div>
+                    
+                </form>
+
+            </div>
+        </div>
+        <script type="text/javascript">
+            
+            $(document).ready(function(){
+
+                $("#checkname").hide();
+                $("#checkuserid").hide();
+                $("#checkemail").hide();
+                $("#checkgender").hide();
+                $("#checkpassword").hide();
+                $("#checkconfirmpassword").hide();
+
+                var name_err=true;
+                var userid_err=true;
+                var email_err=true;
+                var gender_err=true;
+                var password_err=true;
+                var confirmpassword_err=true;
+
+                $("#username").keyup(function() {
+                    namecheck();
+                });
+                function namecheck() {
+                    var name_val=$("#username").val();
+                    
+                    if(name_val.length == ''){
+                        $("#checkname").show();
+                        $("#checkname").html("**please fill your name");
+                        $("#checkname").focus();
+                        password_err=false;
+                        return false;
+                    }else if(name_val.length >15){
+                        $("#checkname").show();
+                        $("#checkname").html("**your name should not be longer than 15 letters");
+                        $("#checkname").focus();
+                        password_err=false;
+                        return false;
+                    }else{
+                        $("#checkname").hide();
+                    }
+                  
+                };
+
+                $("#userid").keyup(function() {
+                    useridcheck();
+                });
+                function useridcheck() {
+                    var uid_val=$("#userid").val();
+                    
+                    if(uid_val.length == ''){
+                        $("#checkuserid").show();
+                        $("#checkuserid").html("**Enter a unique userid");
+                        $("#checkuserid").focus();
+                        userid_err=false;
+                        return false;
+                    }else if(uid_val.length >15){
+                        $("#checkuserid").show();
+                        $("#checkuserid").html("**Unique userid should be maximum 10 characters long");
+                        $("#checkuserid").focus();
+                        userid_err=false;
+                        return false;
+                    }else{
+                        $("#checkuserid").hide();
+                    }
+                };
+
+                function isEmail() {
+                    var email_val=$("#email").val();
+                    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    if(email_val==''){
+                        $("#checkemail").show();
+                        $("#checkemail").html("**please fill email");
+                        $("#checkemail").focus();
+                        email_err=false;
+                        return false;
+                    }else if(!regex.test(email_val)){
+                        $("#checkemail").show();
+                        $("#checkemail").html("**Invalid email");
+                        $("#checkemail").focus();
+                        email_err=false;
+                        return false;
+                    }else{
+                        $("#checkemail").hide();
+                    }
+                };
+                $("#email").keyup(function() {
+                    isEmail();
+                });
+
+                
+                $("#password").keyup(function() {
+                    checkpass();
+                });
+                function checkpass(){
+                    var pass_val=$("#password").val();
+                    if(pass_val.length == ''){
+                        $("#checkpassword").show();
+                        $("#checkpassword").html("**enter password");
+                        $("#checkpassword").focus();
+                        password_err=false;
+                        return false;
+                    }else if(pass_val.length <6){
+                        $("#checkpassword").show();
+                        $("#checkpassword").html("**password too short");
+                        $("#checkpassword").focus();
+                        password_err=false;
+                        return false;
+                    }else if(pass_val.length >15){
+                        $("#checkpassword").show();
+                        $("#checkpassword").html("**password should not contain more than 15 characters");
+                        $("#checkpassword").focus();
+                        password_err=false;
+                        return false;
+                    }else{
+                        $("#checkpassword").hide();
+                    }
+
+                    if((pass_val.match(/(a-zA-Z)/)) && (pass_val.match(/(0-9)/))){
+                        $("#checkpassword").hide();
+                    }else if(pass_val.match(/(@)/)){
+                        $("#checkpassword").hide();
+                    }else{
+                        $("#checkpassword").show();
+                        $("#checkpassword").html("**password must contain a-z,A-Z,0-9 and @ character");
+                        $("#checkpassword").focus();
+                        password_err=false;
+                        return false;
+                    }
+                };
+
+                $("#confirmpassword").keyup(function() {
+                    checkconpass();
+                });
+                function checkconpass(){
+                    var conpass_val=$("#confirmpassword").val();
+                    var pass_val=$("#password").val();
+                    if(conpass_val!=pass_val){
+                        $("#checkconfirmpassword").show();
+                        $("#checkconfirmpassword").html("**password unmatched");
+                        $("#checkconfirmpassword").focus();
+                        confirmpassword_err=false;
+                        return false;
+                    }else{
+                        $("#checkconfirmpassword").hide();
+                    }
+                };
+
+                $("#submit").click(function(){
+                name_err=true;
+                userid_err=true;
+                email_err=true;
+                password_err=true;
+                confirmpassword_err=true;
+
+                namecheck();
+                useridcheck();
+                isEmail();
+                useridcheck();
+                checkconpass();
+
+                if((name_err==true) && (userid_err==true) && (email_err==true) && (password_err==true) && (confirmpassword_err==true)){
+                    return true;
+                }else{
+                    return false;
+                }
+
+                });
+            });
+        </script>
+        
+    </body>
+    
+</html>
